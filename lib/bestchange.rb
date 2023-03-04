@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-require 'net/http'
-require 'tempfile'
-require 'timeout'
-require 'zip'
-
 require_relative 'bestchange/api'
 require_relative 'bestchange/configuration'
 
