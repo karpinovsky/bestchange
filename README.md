@@ -23,6 +23,8 @@ Or install it yourself as:
 Add your own configuration or use the default one
 
 ```ruby
+require 'bestchange'
+
 Bestchange.configure do |config|
   config.dir = "path/to/your/custom/folder" # default is Dir.pwd
   config.timeout = 20 # Timeout for getting & parsing data, default is 40
