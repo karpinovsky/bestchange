@@ -12,15 +12,13 @@ module Bestchange
   DIRECTORY = Dir.pwd
   TIMEOUT = 40
 
-  class << self
-    def configuration
-      @configuration ||= Configuration.new
-    end
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
 
-    def configure
-      return configuration unless block_given?
+  def self.configure
+    return configuration unless block_given?
 
-      yield(configuration)
-    end
+    yield(configuration)
   end
 end
