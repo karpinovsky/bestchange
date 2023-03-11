@@ -1,5 +1,8 @@
 # Change log
 
+## [0.4]
+Do not delete already existed files
+
 ## [0.3]
 Fix configuration access
 
