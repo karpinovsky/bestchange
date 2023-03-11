@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bestchange-api (0.3)
+    bestchange-api (0.4)
       rubyzip (= 2.3.2)
 
 GEM

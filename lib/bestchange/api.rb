@@ -40,8 +40,6 @@ module Bestchange
 
           pathname = Pathname.new(Bestchange.configuration.dir).join(filename)
 
-          pathname.delete if pathname.exist?
-
           zip_file.extract(entry, pathname)
 
           pathname.open
