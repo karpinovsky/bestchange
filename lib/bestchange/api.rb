@@ -7,36 +7,46 @@ require 'timeout'
 require 'zip'
 
 module Bestchange
-  class Api
-    def self.get_files(filenames)
-      pathnames = filenames.map do |filename|
-        Pathname.new(Bestchange.configuration.dir).join(filename)
-      end
+  module Api
+    extend self
 
-      Timeout.timeout(Bestchange.configuration.timeout) { fetch_data(pathnames) }
-
-      pathnames.map do |pathname|
-        File.open(pathname)
+    def get_files(filenames)
+      Timeout.timeout(Bestchange.configuration.timeout) do
+        fetch_files(filenames)
       end
     end
 
-    def self.fetch_data(pathnames)
-      response = Net::HTTP.get(URI(BASE_URI))
+    private
 
-      temp_file = Tempfile.new(ARCHIVE_DATA_FILENAME, encoding: ARCHIVE_DATA_ENCODING)
-      temp_file.write(response)
+    def fetch_files(filenames)
+      response = make_request
 
-      Zip::File.open(temp_file) do |zip_file|
-        pathnames.each do |pathname|
-          entry = zip_file.find_entry(pathname.basename)
+      archive = Tempfile.new(ARCHIVE_DATA_FILENAME, encoding: ARCHIVE_DATA_ENCODING)
+      archive.write(response)
+
+      extract_files(archive, filenames)
+    ensure
+      archive.close if defined?(archive)
+    end
+
+    def make_request
+      Net::HTTP.get(URI(BASE_URI))
+    end
+
+    def extract_files(archive, filenames)
+      Zip::File.open(archive) do |zip_file|
+        filenames.map do |filename|
+          entry = zip_file.find_entry(filename)
+
+          pathname = Pathname.new(Bestchange.configuration.dir).join(filename)
 
           pathname.delete if pathname.exist?
 
           zip_file.extract(entry, pathname)
+
+          pathname.open
         end
       end
-
-      temp_file.close
     end
   end
 end
