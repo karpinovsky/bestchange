@@ -1,5 +1,8 @@
 # Change log
 
+## [0.5]
+Add before_extract block
+
 ## [0.4]
 Do not delete already existed files
 

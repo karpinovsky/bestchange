@@ -1,3 +1,4 @@
+
 # bestchange-api
 
 bestchange-api is a simple library for getting data from Bestchange aggregator
@@ -19,6 +20,7 @@ Or install it yourself as:
     $ gem install bestchange-api
 
 ## Usage
+[Bestchange api description](https://github.com/karpinovsky/bestchange-api/blob/master/API_DOC.txt)
 
 Add your own configuration or use the default one
 
@@ -35,8 +37,15 @@ Fetch data
 ```ruby
 Bestchange::Api.get_files(['bm_rates.dat']) # => [File] 
 ```
+### &before_extract
+You can also pass a block that will be called before `Zip::Entry#extract`. It might be helpful if you need to remove existed files or change files destination for example
+```ruby
+before_extract = ->(_filename, pathname) do
+  pathname.delete if pathname.exist?
+end
 
-**NOTE**:  API documentation is described here [API_DOC.txt](https://github.com/karpinovsky/bestchange-api/blob/master/API_DOC.txt)
+Bestchange::Api.get_files(['bm_rates.dat'], &before_extract)
+```
 
 ## License
 
