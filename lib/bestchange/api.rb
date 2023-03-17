@@ -20,10 +20,7 @@ module Bestchange
 
     def fetch_files(filenames, &before_extract)
       response = make_request
-
-      archive = Tempfile.new(ARCHIVE_DATA_FILENAME, encoding: ARCHIVE_DATA_ENCODING)
-      archive.write(response)
-
+      archive = make_archive(response)
       extract_files(archive, filenames, &before_extract)
     ensure
       archive.close if defined?(archive)
@@ -31,6 +28,12 @@ module Bestchange
 
     def make_request
       Net::HTTP.get(URI(BASE_URI))
+    end
+
+    def make_archive(response)
+      archive = Tempfile.new(ARCHIVE_DATA_FILENAME, encoding: ARCHIVE_DATA_ENCODING)
+      archive.write(response)
+      archive
     end
 
     def extract_files(archive, filenames, &before_extract)
