@@ -1,5 +1,8 @@
 # Change log
 
+## [0.6]
+Pass zip entry via before_extract block
+
 ## [0.5]
 Add before_extract block
 
