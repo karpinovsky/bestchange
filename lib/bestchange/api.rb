@@ -40,7 +40,7 @@ module Bestchange
 
           pathname = Pathname.new(Bestchange.configuration.dir).join(filename)
 
-          before_extract&.call(filename, pathname)
+          before_extract&.call(entry, pathname)
 
           zip_file.extract(entry, pathname)
 

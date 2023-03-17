@@ -39,7 +39,7 @@ Bestchange::Api.get_files(['bm_rates.dat']) # => [File]
 ### &before_extract
 You can also pass a block that will be called before `Zip::Entry#extract`. It might be helpful if you need to remove existed files or change files destination for example
 ```ruby
-before_extract = ->(_filename, pathname) do
+before_extract = ->(_zip_entry, pathname) do
   pathname.delete if pathname.exist?
 end
 
