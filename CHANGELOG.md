@@ -1,5 +1,8 @@
 # Change log
 
+## [0.7]
+Minor improvements
+
 ## [0.6]
 Pass zip entry via before_extract block
 
