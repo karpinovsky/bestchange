@@ -7,49 +7,27 @@ require 'timeout'
 require 'zip'
 
 module Bestchange
-  module Api
-    extend self
+  class Api
+    BASE_URI = 'http://api.bestchange.ru/info.zip'
 
-    def get_files(filenames, &before_extract)
-      Timeout.timeout(Bestchange.configuration.timeout) do
-        fetch_files(filenames, &before_extract)
-      end
+    def initialize(conn = default_conn)
+      @conn = conn
+    end
+
+    attr_reader :conn
+
+    def request(request = default_request)
+      conn.request(request)
     end
 
     private
 
-    def fetch_files(filenames, &before_extract)
-      response = make_request
-      archive = make_archive(response)
-      extract_files(archive, filenames, &before_extract)
-    ensure
-      archive.close if defined?(archive)
+    def default_conn
+      Net::HTTP.new(URI(BASE_URI).host, URI(BASE_URI).port)
     end
 
-    def make_request
-      Net::HTTP.get(URI(BASE_URI))
-    end
-
-    def make_archive(response)
-      archive = Tempfile.new(ARCHIVE_DATA_FILENAME, encoding: ARCHIVE_DATA_ENCODING)
-      archive.write(response)
-      archive
-    end
-
-    def extract_files(archive, filenames, &before_extract)
-      Zip::File.open(archive) do |zip_file|
-        filenames.map do |filename|
-          entry = zip_file.find_entry(filename)
-
-          pathname = Pathname.new(Bestchange.configuration.dir).join(filename)
-
-          before_extract&.call(entry, pathname)
-
-          zip_file.extract(entry, pathname)
-
-          pathname.open
-        end
-      end
+    def default_request
+      Net::HTTP::Get.new(URI(BASE_URI))
     end
   end
 end

@@ -1,5 +1,8 @@
 # Change log
 
+## [1.0]
+Add new Api interface, introduce Zip objects
+
 ## [0.7]
 Minor improvements
 
