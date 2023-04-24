@@ -9,10 +9,10 @@ module Bestchange
     end
 
     def call(filename)
+      tempfile = Tempfile.new(filename)
+
       Zip::File.open(@zip_file) do |zip_file|
         entry = zip_file.find_entry(filename)
-
-        tempfile = Tempfile.new(filename)
 
         entry.extract(tempfile) { true }
       end

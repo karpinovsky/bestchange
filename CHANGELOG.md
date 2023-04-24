@@ -1,5 +1,8 @@
 # Change log
 
+## [1.1]
+Fix tempfile location
+
 ## [1.0]
 Add new Api interface, introduce Zip objects
 
