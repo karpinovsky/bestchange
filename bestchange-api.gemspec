@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rubyzip', '2.3.2'
 
   spec.add_development_dependency 'minitest', '5.17.0'
+  spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'pry', '0.14.2'
   spec.add_development_dependency 'rubocop', '1.47.0'
 
