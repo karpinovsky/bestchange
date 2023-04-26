@@ -3,8 +3,8 @@
 require_relative 'lib/bestchange/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'bestchange-api'
-  spec.summary = 'Bestchange api client'
+  spec.name = 'bestchange'
+  spec.summary = 'Bestchange client'
   spec.description = 'A simple library for getting data from Bestchange aggregator'
 
   spec.version = Bestchange::VERSION
@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Kirill Karpinovsky']
   spec.email = 'karpinovsky@gmail.com'
 
-  spec.homepage = 'https://github.com/karpinovsky/bestchange-api'
+  spec.homepage = 'https://github.com/karpinovsky/bestchange'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
