@@ -1,5 +1,8 @@
 # Change log
 
+## [1.2]
+Add base connection, request constants
+
 ## [1.1]
 Fix tempfile location
 

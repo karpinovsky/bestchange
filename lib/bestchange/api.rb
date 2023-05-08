@@ -9,25 +9,17 @@ require 'zip'
 module Bestchange
   class Api
     BASE_URI = 'http://api.bestchange.ru/info.zip'
+    BASE_CONNECTION = Net::HTTP.new(URI(BASE_URI).host, URI(BASE_URI).port)
+    BASE_REQUEST = Net::HTTP::Get.new(URI(BASE_URI))
 
-    def initialize(conn = default_conn)
+    def initialize(conn = BASE_CONNECTION)
       @conn = conn
     end
 
     attr_reader :conn
 
-    def request(request = default_request)
+    def request(request = BASE_REQUEST)
       conn.request(request)
-    end
-
-    private
-
-    def default_conn
-      Net::HTTP.new(URI(BASE_URI).host, URI(BASE_URI).port)
-    end
-
-    def default_request
-      Net::HTTP::Get.new(URI(BASE_URI))
     end
   end
 end
