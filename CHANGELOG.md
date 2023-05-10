@@ -1,5 +1,8 @@
 # Change log
 
+## [1.3]
+Add on_extract callback support to ZipExtractor initializer
+
 ## [1.2]
 Add base connection, request constants
 

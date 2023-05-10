@@ -4,8 +4,9 @@ require 'zip'
 
 module Bestchange
   class ZipExtractor
-    def initialize(zip_file)
+    def initialize(zip_file, on_extract: nil)
       @zip_file = zip_file
+      @on_extract = on_extract
     end
 
     def call(filename)
@@ -14,6 +15,7 @@ module Bestchange
       Zip::File.open(@zip_file) do |zip_file|
         entry = zip_file.find_entry(filename)
 
+        @on_extract&.call(entry)
         entry.extract(tempfile) { true }
       end
 
